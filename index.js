@@ -15,6 +15,7 @@ const app = new koa();
 
 forward(app, {
 	debug: (process.env.NODE_ENV !== 'production'),
+	baseUrl: 'http://localhost:8080',	// 2017-04-23 AMR TODO: well fuck
 });
 
 const index = async (ctx, next) => {
@@ -25,6 +26,7 @@ const index = async (ctx, next) => {
 
 var server;
 
+app.use(logger());
 app.use(route.get('/', index));
 
 config.onReady(function() {
