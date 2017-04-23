@@ -1,0 +1,26 @@
+{
+  "name": "default",
+  "version": "0.1.0",
+  "description": "Default page forwarder thing",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "monitor": "`npm bin`/nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aelmalinka/website-default.git"
+  },
+  "author": "Michael Thomas (malinka) <aelmalinka@gmail.com>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/aelmalinka/website-default/issues"
+  },
+  "homepage": "https://github.com/aelmalinka/website-default#readme",
+  "dependencies": {
+    "config": "github:aelmalinka/website-config",
+    "koa": "^2.2.0",
+    "koa-forward-request": "^0.8.0",
+    "koa-route": "^3.2.0"
+  }
+}
