@@ -27,31 +27,31 @@ const index = async (ctx, next) => {
 	ctx.forward(ctx.forwards['static'].forward + '/index.html');
 };
 
-var server;
-
 app.use(logger());
 app.use(async (ctx, next) => {
-	await next();
-
 	for(const f in ctx.forwards) {
 		if(ctx.request.url.startsWith(ctx.forwards[f].path)) {
+			ctx.forwarded = true;
 			// 2017-04-24 AMR NOTE: don't allow continuing into later middleware
 			ctx.forward(ctx.forwards[f].forward + ctx.request.url.replace(ctx.forwards[f].path, ""));
 		}
 	}
+
+	await next();
 });
-app.use(route.get('/', async (ctx) => {
-	ctx.forward(ctx.forwards['static'].forward + 'default.html');
-}));
+app.use(async (ctx, next) => {
+	await next();
+
+	if(!ctx.forwarded)
+		ctx.forward(ctx.forwards['static'].forward + 'default.html');
+});
+
+app.listen(config.port);
 
 config.onReady(function() {
 	app.context.forwards = config.forward;
-
-	server = app.listen(config.port);
 });
 
 config.onChange(function() {
-	server.close(function() {
-		server = app.listen(config.port);
-	});
+	app.context.forwards = config.forward;
 });
