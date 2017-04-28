@@ -15,7 +15,7 @@ const config = require('config')(require('./config.js'));
 const app = new koa();
 
 forward(app, {
-	debug: (process.env.NODE_ENV !== 'production')	// 2017-04-23 AMR NOTE: don't debug for now due to trashy output format
+	debug: (process.env.NODE_ENV !== 'production')	// 2017-04-23 AMR TODO: improve output format, or replace completely
 });
 
 const index = async (ctx, next) => {
@@ -29,21 +29,23 @@ const index = async (ctx, next) => {
 
 app.use(logger());
 app.use(async (ctx, next) => {
+	var forwarded = false;
+
 	for(const f in ctx.forwards) {
 		if(ctx.request.url.startsWith(ctx.forwards[f].path)) {
-			ctx.forwarded = true;
-			// 2017-04-24 AMR NOTE: don't allow continuing into later middleware
+			forwarded = true;
 			ctx.forward(ctx.forwards[f].forward + ctx.request.url.replace(ctx.forwards[f].path, ""));
 		}
 	}
 
-	await next();
+	if(!forwarded)
+		await next();
 });
-app.use(async (ctx, next) => {
-	await next();
-
-	if(!ctx.forwarded)
-		ctx.forward(ctx.forwards['static'].forward + 'default.html');
+app.use(route.get('/favicon.ico', async (ctx) => {
+	ctx.throw(404);
+}));
+app.use(async (ctx) => {
+	ctx.forward(ctx.forwards['static'].forward + 'default.html');
 });
 
 app.listen(config.port);
