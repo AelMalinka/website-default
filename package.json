@@ -20,7 +20,9 @@
   "dependencies": {
     "config": "github:aelmalinka/website-config",
     "koa": "^2.2.0",
-    "koa-forward-request": "^0.8.0",
-    "koa-route": "^3.2.0"
+    "koa-forward": "github:aelmalinka/koa-forward",
+    "koa-route": "^3.2.0",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.3"
   }
 }
