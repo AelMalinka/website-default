@@ -29,13 +29,6 @@ app.use(async (ctx, next) => {
 
 	await next();
 });
-app.use(route.post('/asdf', async (ctx, next) => {
-	await next();
-
-	console.log(ctx.request);
-	console.log(ctx.request.rawBody);
-	console.log(ctx.request.body);
-}));
 app.use(route.get('/favicon.ico', async (ctx, next) => {
 	await next();
 
