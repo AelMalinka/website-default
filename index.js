@@ -8,7 +8,6 @@ const koa = require('koa');
 const logger = require('koa-logger');
 const route = require('koa-route');
 const http = require('http');
-const body = require('koa-bodyparser');
 
 const forward = require('koa-forward');
 
@@ -17,7 +16,6 @@ const config = require('config')(require('./config.js'));
 const app = new koa();
 
 app.use(logger());
-app.use(body());
 app.use(forward());
 
 app.use(async (ctx, next) => {
