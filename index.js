@@ -32,11 +32,11 @@ app.use(route.get('/favicon.ico', async (ctx, next) => {
 
 	return ctx.throw(404);
 }));
-app.use(route.get('/', async (ctx, next) => {
+app.use(async (ctx, next) => {
 	await next();
 
 	return await ctx.forward(ctx.forwards['static'].forward + 'default.html');
-}));
+});
 
 app.listen(config.port);
 
