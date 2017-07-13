@@ -11,22 +11,13 @@ const http = require('http');
 
 const forward = require('koa-forward');
 
-const config = require('config')(require('./config.js'));
+const config = require('./config.js');
 
 const app = new koa();
 
 app.use(logger());
 app.use(forward());
 
-app.use(async (ctx, next) => {
-	for(const f in ctx.forwards) {
-		if(ctx.request.url.startsWith(ctx.forwards[f].path)) {
-			return await ctx.forward(ctx.forwards[f].forward + ctx.request.url.replace(ctx.forwards[f].path, ""));
-		}
-	}
-
-	await next();
-});
 app.use(route.get('/favicon.ico', async (ctx, next) => {
 	await next();
 
@@ -39,11 +30,3 @@ app.use(async (ctx, next) => {
 });
 
 app.listen(config.port);
-
-config.onReady(function() {
-	app.context.forwards = config.forward;
-});
-
-config.onChange(function() {
-	app.context.forwards = config.forward;
-});

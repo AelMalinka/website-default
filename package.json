@@ -1,6 +1,6 @@
 {
   "name": "default",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Default page forwarder thing",
   "main": "index.js",
   "scripts": {
@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/aelmalinka/website-default#readme",
   "dependencies": {
-    "config": "github:aelmalinka/website-config",
-    "koa": "^2.2.0",
-    "koa-forward": "github:aelmalinka/koa-forward",
-    "koa-route": "^3.2.0"
+    "koa": "^2.3.0",
+    "koa-logger": "^3.0.1",
+    "koa-route": "^3.2.0",
+    "website-forward": "github:aelmalinka/website-forward"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
