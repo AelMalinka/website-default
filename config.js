@@ -5,10 +5,10 @@
 module.exports = {
 	name: 'default',
 	port: process.env.PORT || 8080,
-	forwards: [
-		{
+	forwards: {
+		'static': {
 			path: process.env.STATIC_PATH || '/static/',
 			forward: process.env.STATIC_URL || 'http://localhost:8082/',
 		},
-	],
+	}
 };

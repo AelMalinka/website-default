@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/aelmalinka/website-default#readme",
   "dependencies": {
+    "forward": "github:aelmalinka/website-forward",
     "koa": "^2.3.0",
     "koa-logger": "^3.0.1",
-    "koa-route": "^3.2.0",
-    "website-forward": "github:aelmalinka/website-forward"
+    "koa-route": "^3.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

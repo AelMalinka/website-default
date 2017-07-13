@@ -1,0 +1,44 @@
+# Copyright 2017 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+    name: default
+spec:
+    template:
+        metadata:
+            labels:
+                app: default
+        spec:
+            containers:
+                - name: default
+                  image: us.gcr.io/entropy-development/default:0.2.0
+                  ports:
+                      - containerPort: 8080
+                  env:
+                      - name: STATIC_PATH
+                        valueFrom:
+                            configMapKeyRef:
+                                name: website-config
+                                key: static.path
+                      - name: STATIC_URL
+                        valueFrom:
+                            configMapKeyRef:
+                                name: website-config
+                                key: static.url
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: default
+    labels:
+        app: default
+spec:
+    type: LoadBalancer
+    ports:
+        - port: 8080
+          protocol: TCP
+          name: http-default
+    selector:
+        app: default
