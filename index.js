@@ -7,7 +7,6 @@
 const koa = require('koa');
 const logger = require('koa-logger');
 const route = require('koa-route');
-const compress = require('koa-compress');
 const etag = require('koa-etag');
 const conditional = require('koa-conditional-get');
 const forward = require('forward');
@@ -18,7 +17,6 @@ const app = new koa();
 
 app.use(logger());
 app.use(forward());
-app.use(compress());
 app.use(conditional());
 app.use(etag());
 
