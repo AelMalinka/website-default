@@ -7,7 +7,6 @@
 const koa = require('koa');
 const logger = require('koa-logger');
 const route = require('koa-route');
-const http = require('http');
 const forward = require('forward');
 
 const config = require('./config.js');
@@ -17,6 +16,14 @@ const app = new koa();
 app.use(logger());
 app.use(forward());
 
+app.use(async (ctx, next) => {
+	for(const x in config.forwards) {
+		if(ctx.url.startsWith(config.forwards[x].path))
+			return await ctx.forward(config.forwards[x].forward + ctx.url.replace(config.forwards[x].path, ''));
+	}
+
+	await next();
+});
 app.use(route.get('/favicon.ico', async (ctx, next) => {
 	await next();
 
