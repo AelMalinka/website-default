@@ -13,7 +13,7 @@ spec:
         spec:
             containers:
             - name: default
-              image: us.gcr.io/entropy-development/default:0.2.0
+              image: aelmalinka/default
               ports:
               - containerPort: 8080
               env:
