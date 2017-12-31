@@ -23,4 +23,9 @@ if(process.env.NODE_ENV !== 'production') {
 		path: process.env.PAGES_PATH || '/pages/',
 		forward: process.env.PAGES_URL || 'http://localhost:8083/',
 	};
+
+	module.exports.forwards['users'] = {
+		path: process.env.PAGES_PATH || '/users/',
+		forward: process.env.PAGES_URL || 'http://localhost:8084/',
+	};
 }
